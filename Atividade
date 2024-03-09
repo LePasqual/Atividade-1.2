@@ -1,0 +1,77 @@
+#include <iostream>
+
+// Definição da estrutura de um nó da pilha
+struct Node {
+    int data;
+    Node* next;
+    
+    Node(int value) : data(value), next(nullptr) {}
+};
+
+// Definição da classe Pilha
+class Pilha {
+private:
+    Node* top; // Ponteiro para o topo da pilha
+
+public:
+    // Construtor da Pilha
+    Pilha() : top(nullptr) {}
+
+    // Método para verificar se a pilha está vazia
+    bool isEmpty() {
+        return top == nullptr;
+    }
+
+    // Método para inserir um elemento na pilha (push)
+    void push(int value) {
+        Node* newNode = new Node(value);
+        newNode->next = top;
+        top = newNode;
+        std::cout << "Elemento " << value << " inserido na pilha.\n";
+    }
+
+    // Método para remover um elemento da pilha (pop)
+    int pop() {
+        if (isEmpty()) {
+            std::cerr << "Erro: A pilha está vazia!\n";
+            return -1; // Retorna um valor inválido
+        }
+        int value = top->data;
+        Node* temp = top;
+        top = top->next;
+        delete temp;
+        return value;
+    }
+
+    // Método para verificar o elemento no topo da pilha (peek)
+    int peek() {
+        if (isEmpty()) {
+            std::cerr << "Erro: A pilha está vazia!\n";
+            return -1; // Retorna um valor inválido
+        }
+        return top->data;
+    }
+};
+
+// Função principal
+int main() {
+    // Criando uma instância da pilha
+    Pilha pilha;
+
+    // Inserindo elementos na pilha
+    pilha.push(10);
+    pilha.push(20);
+    pilha.push(30);
+
+    // Verificando o elemento no topo da pilha
+    std::cout << "Elemento no topo da pilha: " << pilha.peek() << std::endl;
+
+    // Removendo elementos da pilha e mostrando na tela
+    std::cout << "Elemento removido da pilha: " << pilha.pop() << std::endl;
+    std::cout << "Elemento removido da pilha: " << pilha.pop() << std::endl;
+
+    // Verificando o elemento no topo da pilha após as remoções
+    std::cout << "Elemento no topo da pilha: " << pilha.peek() << std::endl;
+
+    return 0;
+}
